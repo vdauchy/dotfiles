@@ -1,0 +1,22 @@
+#!/bin/bash
+
+echo '# Install packages...'
+sudo apt install \
+  htop \
+  terminator \
+  vim
+
+echo '# Setup git...'
+git config --global user.name vdauchy
+git config --global push.default current
+git config --global core.editor vim
+
+echo '# Setup bashrc...'
+grep -qxF '. ~/.bash_customs' ~/.bashrc || echo '. ~/.bash_customs' >> ~/.bashrc
+
+echo '# Extends bashrc...'
+cp -f ./shell/.bash_customs ~/.bash_customs
+cp -f ./shell/.bash_aliases ~/.bash_aliases
+
+echo '# Setups Configs...'
+cp -f ./.config/terminator/config ~/.config/terminator/config

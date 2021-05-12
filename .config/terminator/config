@@ -1,0 +1,65 @@
+[global_config]
+  window_state = maximise
+  suppress_multiple_term_dialog = True
+
+[keybindings]
+
+[profiles]
+  [[default]]
+    cursor_color = "#aaaaaa"
+
+[layouts]
+  [[default]]
+
+    [[[window_main]]]
+      title = WORKSPACE
+      type = Window
+      parent = ""
+      order = 0
+      maximised = True
+      fullscreen = False
+      last_active_window = True
+
+    [[[v_panel_1]]]
+      type = VPaned
+      parent = window_main
+      order = 0
+      ratio = 0.75
+
+        [[[terminal_project]]]
+          title = PROJECTS
+          type = Terminal
+          parent = v_panel_1
+          order = 0
+
+          profile = default
+          command = [ -d projects ] || mkdir projects; cd projects; bash;
+          directory = ""
+
+        [[[h_panel_1]]]
+          type = HPaned
+          parent = v_panel_1
+          order = 1
+          ratio = 0.7
+
+            [[[terminal_docker]]]
+              title = DOCKER
+              type = Terminal
+              parent = h_panel_1
+              order = 0
+
+              profile = default
+              command = docker ps; bash;
+              directory = ""
+
+            [[[terminal_system]]]
+              title = SYSTEM
+              type = Terminal
+              parent = h_panel_1
+              order = 1
+
+              profile = default
+              command = htop
+              directory = ""
+
+[plugins]
