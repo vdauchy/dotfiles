@@ -59,7 +59,7 @@
               order = 1
 
               profile = default
-              command = htop
+              command = bash --init-file <(echo '. "$HOME/.bashrc"; htop')
               directory = ""
 
 [plugins]
