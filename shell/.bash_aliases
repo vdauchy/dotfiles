@@ -6,8 +6,54 @@ alias gk='gitk --all'
 
 alias grep='grep --color=auto'
 
-alias dive='docker run --rm -ti --volume /var/run/docker.sock:/var/run/docker.sock wagoodman/dive:latest'
-
 alias x-name='cat composer.json | jq -r ".name"'
 alias x-dive='dive $(x-name)'
-alias x-run='docker run --rm -ti --volume $(pwd):/usr/src/app --user $(id -u ${USER}):$(id -g ${USER}) $(x-name)'
+alias x-run='docker run --rm -ti --volume $(pwd):$(docker:workdir $(x-name)) $(x-name)'
+alias x-build='docker build . -t $(x-name):latest'
+alias x-rm='docker image rm $(x-name):latest -f'
+
+docker:workdir() {
+    docker image inspect $1 | jq -r ".[].Config.WorkingDir";
+}
+
+docker:clean() {
+    docker system prune -fa;
+    docker volume prune -f;
+}
+
+docker:run() {
+    docker:lazy-pull ${1};
+    docker run \
+        --interactive \
+        --read-only \
+        --rm \
+        --tty \
+        --user $(id -u ${USER}):$(id -g ${USER}) \
+        --volume $(pwd):$(docker:workdir ${1}) \
+        --tmpfs /tmp \
+        ${@}
+}
+
+docker:run:php:8.0() {
+    docker:run vdauchy/php-cli-alpine:8.0 ${@}
+}
+
+docker:run:php:7.4() {
+    docker:run vdauchy/php-cli-alpine:7.4 ${@}
+}
+
+docker:dive() {
+    docker:lazy-pull wagoodman/dive:latest;
+    docker run \
+        --interactive \
+        --read-only \
+        --rm \
+        --tty \
+        --volume /var/run/docker.sock:/var/run/docker.sock \
+        wagoodman/dive:latest \
+        ${@}
+}
+
+docker:lazy-pull() {
+    docker image inspect ${1} > /dev/null 2>&1 || docker pull ${1};
+}
