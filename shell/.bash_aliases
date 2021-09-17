@@ -12,6 +12,8 @@ alias x-run='docker run --rm -ti --volume $(pwd):$(docker:workdir $(x-name)) $(x
 alias x-build='docker build . -t $(x-name):latest'
 alias x-rm='docker image rm $(x-name):latest -f'
 
+alias php-phan='docker:run:php:qa phan --color'
+
 docker:workdir() {
     docker image inspect $1 | jq -r ".[].Config.WorkingDir";
 }
@@ -40,6 +42,21 @@ docker:run:php:8.0() {
 
 docker:run:php:7.4() {
     docker:run vdauchy/php-cli-alpine:7.4 ${@}
+}
+
+docker:run:php:qa() {
+    docker run \
+        --init \
+        --interactive \
+        --read-only \
+        --rm \
+        --tmpfs /tools/.composer/cache \
+        --tty \
+        --volume "$(pwd)/tmp-phpqa:/tmp" \
+        --volume "$(pwd):/project" \
+        --workdir /project \
+        jakzal/phpqa:alpine \
+        ${@}
 }
 
 docker:dive() {
