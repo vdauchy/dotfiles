@@ -24,7 +24,15 @@ docker:prune() {
 }
 
 docker:rm() {
-    docker rm $(docker ps -a -q) -f
+    docker ps -q -a | xargs --no-run-if-empty docker rm -f
+}
+
+docker:rmi() {
+    docker images -q -f dangling=true | xargs --no-run-if-empty docker rmi -f
+}
+
+docker:df() {
+    docker system df
 }
 
 docker:run() {
@@ -85,4 +93,8 @@ dotfile:refresh() {
 
 dotfile:gg() {
     (cd ~/projects/dotfiles && gg)
+}
+
+term:nuke() {
+    (cat /dev/null > ~/.bash_history && history -c && kill -9 $(ps aux | grep term | awk '{print $2}'))
 }

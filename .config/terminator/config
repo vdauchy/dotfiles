@@ -49,7 +49,7 @@
               order = 0
 
               profile = default
-              command = docker ps; bash;
+              command = watch -n 1 docker ps; bash;
               directory = ""
 
             [[[terminal_system]]]
@@ -59,7 +59,7 @@
               order = 1
 
               profile = default
-              command = bash --init-file <(echo '. "$HOME/.bashrc"; htop')
+              command = htop; bash;
               directory = ""
 
 [plugins]
