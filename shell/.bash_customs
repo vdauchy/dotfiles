@@ -24,3 +24,7 @@ export LESS_TERMCAP_md="$ORANGE"
 
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
+
+# Remove semicolon from list of break characters.
+# https://stackoverflow.com/questions/2805412/bash-completion-for-maven-escapes-colon
+COMP_WORDBREAKS=${COMP_WORDBREAKS//:}

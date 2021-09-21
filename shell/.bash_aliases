@@ -18,9 +18,13 @@ docker:workdir() {
     docker image inspect $1 | jq -r ".[].Config.WorkingDir";
 }
 
-docker:clean() {
+docker:prune() {
     docker system prune -fa;
     docker volume prune -f;
+}
+
+docker:rm() {
+    docker rm $(docker ps -a -q) -f
 }
 
 docker:run() {
@@ -73,4 +77,12 @@ docker:dive() {
 
 docker:lazy-pull() {
     docker image inspect ${1} > /dev/null 2>&1 || docker pull ${1};
+}
+
+dotfile:refresh() {
+    ~/projects/dotfiles/bootstrap;
+}
+
+dotfile:gg() {
+    (cd ~/projects/dotfiles && gg)
 }

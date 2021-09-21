@@ -1,12 +1,14 @@
 #!/bin/bash
 
+SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+
 echo 'This will overwrite configs and install/uninstall packages, continue? (Y/n)'
 read -rp 'Answer: '  answer
 
 if [[ ${answer:-Y} =~ ^[Yy]$ ]]; then
    sudo -v
 
-   source ./installscript
+   source $SCRIPTPATH/installscript
 
    exec "$BASH"
 fi
