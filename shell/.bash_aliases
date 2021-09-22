@@ -43,17 +43,20 @@ docker:run() {
         --rm \
         --tty \
         --user $(id -u ${USER}):$(id -g ${USER}) \
-        --volume $(pwd):$(docker:workdir ${1}) \
         --tmpfs /tmp \
         ${@}
 }
 
+docker:run:pwd() {
+    docker:run --volume $(pwd):$(docker:workdir ${1}) ${@}
+}
+
 docker:run:php:8.0() {
-    docker:run vdauchy/php-cli-alpine:8.0 ${@}
+    docker:run:pwd vdauchy/php-cli-alpine:8.0 ${@}
 }
 
 docker:run:php:7.4() {
-    docker:run vdauchy/php-cli-alpine:7.4 ${@}
+    docker:run:pwd vdauchy/php-cli-alpine:7.4 ${@}
 }
 
 docker:run:php:qa() {
@@ -93,6 +96,10 @@ dotfile:refresh() {
 
 dotfile:gg() {
     (cd ~/projects/dotfiles && gg)
+}
+
+dotfile:edit() {
+    (gedit ~/.bash_* &)
 }
 
 term:nuke() {

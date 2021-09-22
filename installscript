@@ -36,5 +36,8 @@ echo '# Setups Configs...'
 mkdir -p ~/.config/terminator
 cp -f $SCRIPTPATH/.config/terminator/config ~/.config/terminator/config
 
+echo '# Upgrade...'
+sudo apt upgrade -y
+
 echo '# Cleanup...'
 sudo apt autoremove -y
