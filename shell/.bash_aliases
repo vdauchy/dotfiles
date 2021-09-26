@@ -14,6 +14,18 @@ alias x-rm='docker image rm $(x-name):latest -f'
 
 alias php-phan='docker:run:php:qa phan --color'
 
+git:github:user() {
+    git config --unset-all user.name;
+    git config --add user.name vdauchy;
+
+    git config --unset-all user.email
+    git config --add user.email 26772554+vdauchy@users.noreply.github.com
+}
+
+git:tag:delete:origin() {
+    git push --delete origin ${@}
+}
+
 docker:workdir() {
     docker image inspect $1 | jq -r ".[].Config.WorkingDir";
 }
