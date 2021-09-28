@@ -1,52 +1,54 @@
 #!/bin/bash
 
-#set -e
+set -x
 SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
-echo '# Install packages...'
+echo '###########################################################################'
+echo '# Install packages (apt)...'
 sudo apt install \
+  apt-transport-https \
+  ca-certificates \
+  curl \
   git \
   git-gui \
+  gnupg \
   htop \
   jq \
+  lsb-release
   qbittorrent \
   terminator \
-  vim
+  vim \
 
+echo '###########################################################################'
+echo '# Install packages (slack)...'
+sudo snap install slack --classic
+sudo snap install  --classic
+
+echo '###########################################################################'
 echo '# Install Docker...'
 sudo apt remove docker docker-engine docker.io containerd runc
-sudo apt update
-sudo apt install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release
+sudo apt -y update
 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+  sudo gpg -y --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 echo \
   "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo apt -y update
+sudo apt install docker-ce docker-ce-cli containerd.io
 
 sudo groupadd docker
 sudo usermod -aG docker $USER
-newgrp docker 
 
-echo '# Install phpstorm...'
-sudo snap install phpstorm --classic
-
+echo '###########################################################################'
 echo '# Install chrome...'
 sudo sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo apt update
+sudo apt -y update
 sudo apt install google-chrome-stable
 
-echo '# Install Qbittorrent...'
-sudo apt install qbittorrent
-
+echo '###########################################################################'
 echo '# Install VeraCrypt...'
 veracrypt="veracrypt-1.24-Update7-Ubuntu-21.04-amd64.deb"
 sudo wget https://launchpad.net/veracrypt/trunk/1.24-update7/+download/$veracrypt
