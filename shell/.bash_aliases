@@ -117,3 +117,9 @@ dotfile:edit() {
 term:nuke() {
     (cat /dev/null > ~/.bash_history && history -c && kill -9 $(ps aux | grep term | awk '{print $2}'))
 }
+
+include () {
+    [[ -f "$1" ]] && source "$1"
+}
+
+include ~/.gdc

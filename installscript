@@ -5,7 +5,7 @@ SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
 echo '###########################################################################'
 echo '# Install packages (apt)...'
-sudo apt install \
+sudo apt -y install \
   apt-transport-https \
   ca-certificates \
   curl \
@@ -14,19 +14,32 @@ sudo apt install \
   gnupg \
   htop \
   jq \
-  lsb-release
+  libmysqlclient-dev \
+  lsb-release \
+  python3 \
+  python3-pip \
+  python3-venv \
   qbittorrent \
   terminator \
-  vim \
+  vim
 
 echo '###########################################################################'
-echo '# Install packages (slack)...'
+echo '# Install packages (snap)...'
 sudo snap install slack --classic
 sudo snap install  --classic
 
 echo '###########################################################################'
+echo '# Install packages (npm)...'
+npm install --global gsts
+
+echo '###########################################################################'
+echo '# Install PIPX (https://pypa.github.io/pipx/)...'
+python3 -m pip install --user --upgrade pipx
+python3 -m pipx ensurepath
+
+echo '###########################################################################'
 echo '# Install Docker...'
-sudo apt remove docker docker-engine docker.io containerd runc
+sudo apt -y remove docker docker-engine docker.io containerd runc
 sudo apt -y update
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
@@ -36,7 +49,7 @@ echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 sudo apt -y update
-sudo apt install docker-ce docker-ce-cli containerd.io
+sudo apt -y install docker-ce docker-ce-cli containerd.io
 
 sudo groupadd docker
 sudo usermod -aG docker $USER
@@ -46,7 +59,7 @@ echo '# Install chrome...'
 sudo sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 sudo apt -y update
-sudo apt install google-chrome-stable
+sudo apt -y install google-chrome-stable
 
 echo '###########################################################################'
 echo '# Install VeraCrypt...'
@@ -72,7 +85,7 @@ mkdir -p ~/.config/terminator
 cp -f $SCRIPTPATH/.config/terminator/config ~/.config/terminator/config
 
 echo '# Upgrade...'
-sudo apt upgrade -y
+sudo apt -y upgrade
 
 echo '# Cleanup...'
-sudo apt autoremove -y
+sudo apt -y autoremove
