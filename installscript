@@ -7,6 +7,7 @@ echo '##########################################################################
 echo '# Install packages (apt)...'
 sudo apt -y install \
   apt-transport-https \
+  awscli \
   ca-certificates \
   curl \
   git \
@@ -16,6 +17,8 @@ sudo apt -y install \
   jq \
   libmysqlclient-dev \
   lsb-release \
+  network-manager-openvpn \
+  network-manager-openvpn-gnome \
   python3 \
   python3-pip \
   python3-venv \
@@ -55,6 +58,20 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 
 echo '###########################################################################'
+echo '# Install Mysql-Workbench...'
+workbench="mysql-apt-config_0.8.19-1_all.deb"
+sudo wget https://dev.mysql.com/get/$workbench
+sudo apt -y install ./$workbench
+rm -rf ./$workbench
+sudo apt -y update
+sudo apt -y install mysql-workbench-community
+
+echo '###########################################################################'
+echo '# Install Docker-compose...'
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+echo '###########################################################################'
 echo '# Install chrome...'
 sudo sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
@@ -68,24 +85,38 @@ sudo wget https://launchpad.net/veracrypt/trunk/1.24-update7/+download/$veracryp
 sudo apt -y install ./$veracrypt
 rm -rf ./veracrypt*
 
+echo '###########################################################################'
+echo '# Install Terraform...'
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt-add-repository -y "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt -y update
+sudo apt -y install terraform
+terraform -install-autocomplete
+
+echo '###########################################################################'
 echo '# Setup git...'
 git config --global user.name vdauchy
 git config --global push.default current
 git config --global core.editor vim
 
+echo '###########################################################################'
 echo '# Setup bashrc...'
 grep -qxF '. ~/.bash_customs' ~/.bashrc || echo '. ~/.bash_customs' >> ~/.bashrc
 
+echo '###########################################################################'
 echo '# Extends bashrc...'
 cp -f $SCRIPTPATH/shell/.bash_customs ~/.bash_customs
 cp -f $SCRIPTPATH/shell/.bash_aliases ~/.bash_aliases
 
-echo '# Setups Configs...'
+echo '###########################################################################'
+echo '# Setups Terminator...'
 mkdir -p ~/.config/terminator
 cp -f $SCRIPTPATH/.config/terminator/config ~/.config/terminator/config
 
+echo '###########################################################################'
 echo '# Upgrade...'
 sudo apt -y upgrade
 
+echo '###########################################################################'
 echo '# Cleanup...'
 sudo apt -y autoremove

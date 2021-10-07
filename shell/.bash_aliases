@@ -79,6 +79,7 @@ docker:run:php:qa() {
         --rm \
         --tmpfs /tools/.composer/cache \
         --tty \
+        --user $(id -u ${USER}):$(id -g ${USER}) \
         --volume "$(pwd)/tmp-phpqa:/tmp" \
         --volume "$(pwd):/project" \
         --workdir /project \
