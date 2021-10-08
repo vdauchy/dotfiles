@@ -119,6 +119,10 @@ term:nuke() {
     (cat /dev/null > ~/.bash_history && history -c && kill -9 $(ps aux | grep term | awk '{print $2}'))
 }
 
+swap:nuke() {
+	(sudo swapoff -a; sudo swapon -a);
+}
+
 include () {
     [[ -f "$1" ]] && source "$1"
 }
