@@ -94,6 +94,17 @@ sudo apt -y install terraform
 terraform -install-autocomplete
 
 echo '###########################################################################'
+echo '# Install Kubernetes...'
+kubLastVersion=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$kubLastVersion/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+echo '###########################################################################'
+echo '# Install Helm...'
+curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+echo '###########################################################################'
 echo '# Setup git...'
 git config --global user.name vdauchy
 git config --global push.default current
