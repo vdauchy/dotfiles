@@ -12,3 +12,4 @@
 	unstage = reset HEAD --
 	last = log -1 HEAD
 	wip = "!f() { git commit -m \"wip\" -n && git push; }; f"
+	trigger = "!f() { git commit --allow-empty -m \"trigger\" -n && git push; }; f"
