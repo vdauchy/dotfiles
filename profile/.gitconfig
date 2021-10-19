@@ -6,10 +6,11 @@
 	editor = vim
 [alias]
 	co = checkout
+	cp = "!f() { git commit -m \"$1\" -n && git push; }; f"
 	br = branch
 	ci = commit
 	st = status
-	unstage = reset HEAD --
 	last = log -1 HEAD
+	tree = log --graph --decorate --pretty=oneline --abbrev-commit
 	wip = "!f() { git commit -m \"wip\" -n && git push; }; f"
 	trigger = "!f() { git commit --allow-empty -m \"trigger\" -n && git push; }; f"
