@@ -1,0 +1,14 @@
+[user]
+	name = vdauchy
+[push]
+	default = current
+[core]
+	editor = vim
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	wip = "!f() { git commit -m \"wip\" -n && git push; }; f"

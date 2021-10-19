@@ -28,9 +28,13 @@ sudo apt -y install \
   vim
 
 echo '###########################################################################'
+echo '# Remove packages (apt)...'
+sudo apt -y remove ibus
+
+echo '###########################################################################'
 echo '# Install packages (snap)...'
-sudo snap install slack --classic
-sudo snap install  --classic
+sudo snap install slack --classicg
+sudo snap install --classic
 
 echo '###########################################################################'
 echo '# Install packages (npm)...'
@@ -131,7 +135,7 @@ cp -f $SCRIPTPATH/shell/.bash_aliases ~/.bash_aliases
 echo '###########################################################################'
 echo '# Setups Terminator...'
 mkdir -p ~/.config/terminator
-cp -f $SCRIPTPATH/.config/terminator/config ~/.config/terminator/config
+cp -f $SCRIPTPATH/profile/.config/terminator/config ~/.config/terminator/config
 
 echo '###########################################################################'
 echo '# Upgrade...'
