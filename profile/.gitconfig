@@ -13,6 +13,6 @@
 	st = status
 	last = log -1 HEAD
 	tree = log --graph --decorate --pretty=oneline --abbrev-commit
-	wap = "!f() { git aa && git wip \"{$1}\"; }; f"
-	wip = "!f() { git commit -m \"{$1:-wip}\" -n && git push; }; f"
-	trigger = "!f() { git commit --allow-empty -m \"{$1:-trigger}\" -n && git push; }; f"
+	wap = "!f() { git aa && git wip \"${1}\"; }; f"
+	wip = "!f() { git commit -m \"${1:-wip}\" -n && git push; }; f"
+	trigger = "!f() { git commit --allow-empty -m \"${1:-trigger}\" -n && git push; }; f"
