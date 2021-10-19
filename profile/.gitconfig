@@ -12,6 +12,9 @@
 	ci = commit
 	st = status
 	last = log -1 HEAD
+	ri = rebase --interactive
+	ra = rebase --abort
+	rc = rebase --continue
 	tree = log --graph --decorate --pretty=oneline --abbrev-commit
 	wap = "!f() { git aa && git wip \"${1}\"; }; f"
 	wip = "!f() { git commit -m \"${1:-wip}\" -n && git push; }; f"
