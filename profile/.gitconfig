@@ -1,21 +1,21 @@
 [user]
-	name = vdauchy
+    name = vdauchy
 [push]
-	default = current
+    default = current
 [core]
-	editor = vim
+    editor = vim
 [alias]
     aa = add *
-	co = checkout
-	cp = "!f() { git commit -m \"$1\" -n && git push; }; f"
-	br = branch
-	ci = commit
-	st = status
-	last = log -1 HEAD
-	ri = rebase --interactive
-	ra = rebase --abort
-	rc = rebase --continue
-	tree = log --graph --decorate --pretty=oneline --abbrev-commit
-	wap = "!f() { git aa && git wip \"${1}\"; }; f"
-	wip = "!f() { git commit -m \"${1:-wip}\" -n && git push; }; f"
-	trigger = "!f() { git commit --allow-empty -m \"${1:-trigger}\" -n && git push; }; f"
+    co = checkout
+    cap = "!f() { git aa && git cp \"${1}\"; }; f"
+    cp = "!f() { git commit -m \"${1}\" -n && git push; }; f"
+    br = branch
+    ci = commit
+    st = status
+    last = log -1 HEAD
+    ri = rebase --interactive
+    ra = rebase --abort
+    rc = rebase --continue
+    tree = log --graph --decorate --pretty=oneline --abbrev-commit
+    wip = cp "wip"
+    trigger = "!f() { git commit --allow-empty -m \"${1:-trigger}\" -n && git push; }; f"
