@@ -23,6 +23,7 @@ git:github:user() {
 }
 
 git:tag:delete:origin() {
+    git tag --delete ${@}
     git push --delete origin ${@}
 }
 
