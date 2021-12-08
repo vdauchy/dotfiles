@@ -85,6 +85,11 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 echo '###########################################################################'
+echo '# Install XSV...'
+sudo curl -L "https://github.com/BurntSushi/xsv/releases/download/0.13.0/xsv-0.13.0-x86_64-unknown-linux-musl.tar.gz" | sudo tar xvz -C /usr/local/bin
+sudo chmod +x /usr/local/bin/xsv
+
+echo '###########################################################################'
 echo '# Install chrome...'
 sudo sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
