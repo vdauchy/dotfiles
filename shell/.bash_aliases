@@ -64,6 +64,10 @@ docker:run:pwd() {
     docker:run --volume $(pwd):$(docker:workdir ${1}) ${@}
 }
 
+docker:run:php:8.1() {
+    docker:run:pwd vdauchy/php-cli-alpine:8.1 ${@}
+}
+
 docker:run:php:8.0() {
     docker:run:pwd vdauchy/php-cli-alpine:8.0 ${@}
 }
