@@ -133,3 +133,4 @@ include () {
 }
 
 include ~/.gdc
+include ~/.github
