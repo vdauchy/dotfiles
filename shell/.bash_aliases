@@ -134,3 +134,4 @@ include () {
 
 include ~/.gdc
 include ~/.github
+include ~/.blackfire

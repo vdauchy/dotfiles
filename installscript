@@ -146,6 +146,8 @@ echo '##########################################################################
 echo '# Extends bashrc...'
 cp -f $SCRIPTPATH/shell/.bash_customs ~/.bash_customs
 cp -f $SCRIPTPATH/shell/.bash_aliases ~/.bash_aliases
+cp -n $SCRIPTPATH/shell/.github ~/.github
+cp -n $SCRIPTPATH/shell/.blackfire ~/.blackfire
 
 echo '###########################################################################'
 echo '# Setups Configs...'

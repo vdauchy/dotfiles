@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export BLACKFIRE_CLIENT_ID="<REPLACE>"
+export BLACKFIRE_CLIENT_TOKEN="<REPLACE>"
