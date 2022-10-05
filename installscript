@@ -12,6 +12,7 @@ sudo apt -y install \
   curl \
   git \
   git-gui \
+  gnome-screenshot \
   gnome-tweak-tool \
   gnupg \
   htop \
