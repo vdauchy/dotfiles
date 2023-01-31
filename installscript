@@ -19,6 +19,7 @@ sudo apt -y install \
   ncdu \
   network-manager-openvpn \
   network-manager-openvpn-gnome \
+  npm \
   python3 \
   python3-pip \
   python3-venv \
@@ -35,8 +36,15 @@ echo '# Install packages (snap)...'
 sudo snap install slack --classic
 
 echo '###########################################################################'
+echo '# Install nvm/node...'
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+source ~/.bashrc
+nvm install lts/*
+
+echo '###########################################################################'
 echo '# Install packages (npm)...'
 npm install --global gsts
+npm install --global yarn
 
 echo '###########################################################################'
 echo '# Install albert...'
@@ -63,6 +71,12 @@ sudo apt update
 sudo apt install docker-ce
 sudo groupadd docker
 sudo usermod -aG docker $USER
+
+echo '###########################################################################'
+echo '# Install Docker Compose...'
+mkdir -p ~/.docker/cli-plugins/
+curl -SL https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+chmod +x ~/.docker/cli-plugins/docker-compose
 
 echo '###########################################################################'
 echo '# Install Mysql-Workbench...'

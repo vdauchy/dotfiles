@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 alias gc='git clone'
 alias gg='git gui'
 alias gk='gitk --all'
