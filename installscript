@@ -32,8 +32,7 @@ sudo apt -y remove ibus
 
 echo '###########################################################################'
 echo '# Install packages (snap)...'
-sudo snap install slack --classicg
-sudo snap install --classic
+sudo snap install slack --classic
 
 echo '###########################################################################'
 echo '# Install packages (npm)...'
