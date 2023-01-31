@@ -11,8 +11,6 @@ sudo apt -y install \
   ca-certificates \
   curl \
   git-all \
-  gnome-screenshot \
-  gnome-tweak-tool \
   gnupg \
   htop \
   jq \
