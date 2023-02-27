@@ -62,7 +62,7 @@ docker:run() {
 }
 
 docker:run:pwd() {
-    docker:run --volume $(pwd):$(docker:workdir ${1}) ${@}
+    docker:run --volume $(pwd):$(docker:workdir "${1}") ${@}
 }
 
 docker:run:php:8.1() {

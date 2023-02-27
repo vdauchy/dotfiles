@@ -73,9 +73,15 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 
 echo '###########################################################################'
+echo '# Install Insomnia...'
+echo "deb [trusted=yes arch=amd64] https://download.konghq.com/insomnia-ubuntu/ default all" | sudo tee -a /etc/apt/sources.list.d/insomnia.list
+sudo apt-get update
+sudo apt-get install insomnia
+
+echo '###########################################################################'
 echo '# Install Docker Compose...'
 mkdir -p ~/.docker/cli-plugins/
-curl -SL https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+curl -SL https://github.com/docker/compose/releases/download/v2.22.0/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
 chmod +x ~/.docker/cli-plugins/docker-compose
 
 echo '###########################################################################'
